@@ -34,7 +34,7 @@ Example (positions marked with ^ are returned):
     (save-excursion
       (save-restriction
         (beginning-of-line)
-        ; To make \\` work in the regexp below:
+        ;; To make \\` work in the regexp below:
         (narrow-to-region (line-beginning-position) (line-end-position))
         (while
             (progn
@@ -48,7 +48,7 @@ Example (positions marked with ^ are returned):
                 (and pos
                      (< (point) (line-end-position))
                      (or (null max) (< (current-column) max))))))
-        (nreverse result) ; Destructive operation.
+        (nreverse result) ;Destructive operation.
         ))))
 
 (defun eri-new-indentation-points ()
@@ -59,7 +59,7 @@ excluded) above the current line. If there is no such line,
 then the empty list is returned."
   (let ((start (line-beginning-position)))
     (save-excursion
-      ; Find a non-empty line above the current one, if any.
+      ;; Find a non-empty line above the current one, if any.
       (while
           (progn
             (forward-line -1)
@@ -84,8 +84,13 @@ the returned list."
       (while
           (progn
             (forward-line -1)
+<<<<<<< HEAD
                                         ; Skip the line we started from and lines with nothing but
                                         ; white space.
+=======
+            ;; Skip the line we started from and lines with nothing
+            ;; but white space.
+>>>>>>> xref-support
             (unless (or (= (point) start)
                         (eri-current-line-empty))
               (setq points
