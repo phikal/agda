@@ -220,7 +220,7 @@ constituents.")
     m)
   "Bindings for `agda2-mode'.")
 
-(defvar agda2-repeat-map
+(defvar agda2-movement-repeat-map
   (let ((m (make-sparse-keymap)))
     (define-key m (kbd "C-f")   #'agda2-next-goal)
     (define-key m (kbd "C-b")   #'agda2-previous-goal)
