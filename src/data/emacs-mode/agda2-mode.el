@@ -263,8 +263,7 @@ constituents.")
     (eri-indent-reverse          [S-tab])
     (agda2-goto-definition-mouse [mouse-2])
     (agda2-goto-definition-keyboard "\M-.")
-    (agda2-go-back                  ,(if (version< emacs-version "25.1") "\M-*" "\M-,"))
-    )
+    (agda2-go-back                  ,(if (version< emacs-version "25.1") "\M-*" "\M-,")))
   "Table of commands, used to build keymaps and menus.
 Each element has the form (CMD &optional KEYS WHERE DESC) where
 CMD is a command; KEYS is its key binding (if any); WHERE is a
@@ -808,8 +807,7 @@ command is sent to Agda (if it is sent)."
   (interactive)
   (agda2-go 'save t 'busy t "Cmd_load"
             (agda2-string-quote (buffer-file-name))
-            (agda2-list-quote agda2-program-args)
-            ))
+            (agda2-list-quote agda2-program-args)))
 
 (defun agda2-read-backend ()
   "Get the currently set backend from the `agda2-backend' variable,
@@ -831,17 +829,14 @@ The variable `agda2-backend' determines which backend is used."
   (agda2-go 'save t 'busy t "Cmd_compile"
             backend
             (agda2-string-quote (buffer-file-name))
-            (agda2-list-quote agda2-program-args)
-            ))
+            (agda2-list-quote agda2-program-args)))
 
 (defun agda2-backend-cmd (backend payload)
   "Run the current backend's (from variable `agda2-backend`) interaction command."
   (interactive (list (agda2-read-backend) (or agda2-backend-default-payload (read-string "Payload: "))))
   (if (agda2-goal-at (point))
      (agda2-goal-cmd "Cmd_backend_hole" nil 'goal nil backend (agda2-string-quote payload))
-     (agda2-go 'save t 'busy t "Cmd_backend_top" backend (agda2-string-quote payload))
-  )
-)
+     (agda2-go 'save t 'busy t "Cmd_backend_top" backend (agda2-string-quote payload))))
 
 (defmacro agda2-maybe-forced (name comment cmd save want)
   "This macro constructs a function NAME which runs CMD.
@@ -1016,9 +1011,7 @@ The buffer is returned.")
       ;; and can be accessed by annotation-annotate.
       ;; This allows us to create Agda-style highlighting from aspects
       ;; also in the Agda information buffer.
-      (agda2-highlight-setup)
-      ))
-
+      (agda2-highlight-setup)))
   ,buffer))
 
 (agda2-information-buffer agda2-info-buffer "info" "*Agda information*")
@@ -1419,15 +1412,13 @@ Along with their types."
   "Shows all the top-level names in the given module.
 Along with their types."
   "Cmd_show_module_contents_toplevel"
-  "Module name (empty for top-level module)"
-)
+  "Module name (empty for top-level module)")
 
 (agda2-maybe-normalised-toplevel
   agda2-search-about-toplevel
   "Search About an identifier"
   "Cmd_search_about_toplevel"
-  "Name"
-)
+  "Name")
 
 (defun agda2-module-contents-maybe-toplevel ()
   "Shows all the top-level names in the given module.
@@ -1446,8 +1437,7 @@ Either only one if point is a goal, or all of them."
   (interactive)
   (call-interactively (if (agda2-goal-at (point))
                           'agda2-solveOne
-                          'agda2-solveAll))
-)
+                          'agda2-solveAll)))
 
 (defun agda2-mimer-maybe-all ()
   "Run proof search.
@@ -1455,33 +1445,28 @@ Either only one if point is a goal, or all of them."
   (interactive)
   (call-interactively (if (agda2-goal-at (point))
                           'agda2-mimer
-                          'agda2-mimerAll))
-)
+                          'agda2-mimerAll)))
 
 (agda2-maybe-normalised-asis
   agda2-mimer
   "Run proof search on a goal."
   "Cmd_autoOne"
-  'goal
-)
+  'goal)
 
 (agda2-maybe-normalised-toplevel-asis-noprompt
   agda2-mimerAll
   "Solves all goals by simple proof search."
-  "Cmd_autoAll"
-)
+  "Cmd_autoAll")
 
 (agda2-maybe-normalised-toplevel-asis-noprompt
  agda2-show-goals
  "Show all goals."
- "Cmd_metas"
- )
+ "Cmd_metas")
 
 (agda2-maybe-normalised-toplevel-asis-noprompt
  agda2-solveAll
  "Solves all goals that are already instantiated internally."
- "Cmd_solveAll"
- )
+ "Cmd_solveAll")
 
 ;; Andreas, 2025-09-12
 ;; Cmd_constraints has same normalization strategy as Cmd_solveOne
@@ -1490,15 +1475,13 @@ Either only one if point is a goal, or all of them."
 (agda2-maybe-normalised-toplevel-noprompt
   agda2-show-constraints
   "Show meta solutions and constraints."
-  "Cmd_constraints"
-)
+  "Cmd_constraints")
 
 (agda2-maybe-normalised
   agda2-solveOne
   "Solves the goal at point if it is already instantiated internally"
   "Cmd_solveOne"
-  nil
-)
+  nil)
 
 (defun agda2-solveAll-action (iss)
   (while iss
@@ -1728,8 +1711,7 @@ text properties."
             (apply 'agda2-go 'save t 'busy nil "Cmd_highlight"
               (format "%d" old-g)
               (agda2-mkRange `(,p ,(- q 2)))
-              (agda2-string-quote new-txt) nil))
-    )))
+              (agda2-string-quote new-txt) nil)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; Misc
